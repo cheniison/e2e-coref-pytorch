@@ -15,8 +15,8 @@ best_config = {
     "weight_decay": 0.0005,
     "dropout": 0.3,
 
-    "report_frequency": 5,
-    "eval_frequency": 50,
+    "report_frequency": 50,
+    "eval_frequency": 500,
 
     # ontonotes dir
     "ontonotes_root_dir": "./data/ontonotes",
@@ -25,8 +25,8 @@ best_config = {
     "val_file_path": "./data/val.json",
 
     # max candidate mentions size in first/second stage
-    "top_span_ratio": 40,
-    "max_top_antecedents": 500,
+    "top_span_ratio": 0.4,
+    "max_top_antecedents": 50,
     # use coarse to fine pruning
     "coarse_to_fine": True,
     # high order coref depth

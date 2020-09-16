@@ -54,17 +54,17 @@ def train():
     # =========end:使用自己的数据=========
 
     # =========使用已生成的数据文件=========
-    # train_data = list()
-    # with open(c["train_file_path"], "r", encoding="utf-8") as fd:
-    #     for line in fd:
-    #         item = json.loads(line.strip())
-    #         train_data.append(item)
+    train_data = list()
+    with open(c["train_file_path"], "r", encoding="utf-8") as fd:
+        for line in fd:
+            item = json.loads(line.strip())
+            train_data.append(item)
 
-    # val_data = list()
-    # with open(c["val_file_path"], "r", encoding="utf-8") as fd:
-    #     for line in fd:
-    #         item = json.loads(line.strip())
-    #         val_data.append(item)
+    val_data = list()
+    with open(c["val_file_path"], "r", encoding="utf-8") as fd:
+        for line in fd:
+            item = json.loads(line.strip())
+            val_data.append(item)
 
     # =========end:使用已生成的数据文件=========
 

@@ -1,6 +1,6 @@
 # e2e-coref-pytorch
 
-端到端指代消解pytorch实现
+基于bert的端到端指代消解pytorch实现，仅在Ontonotes中文数据集上进行了测试（ONLY TESTED ON ONTONOTES 5.0 CHINESE DATASET），模型架构及tensorflow实现参考[bert-coref](https://github.com/mandarjoshi90/coref)
 
 ## 目录结构
 
@@ -27,7 +27,6 @@
 + torch=1.15.0
 + transformers=3.0.2
 + numpy=1.18.1
-+ 
 
 
 ## 数据集收集和处理
