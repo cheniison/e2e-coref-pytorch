@@ -53,7 +53,7 @@
     "clusters": [[[sloc1, eloc1], [sloc2, eloc2], ...], ...],
     "speaker_ids" [["speaker#1", ...], ...]
     "sentence_map": [[0, 0, 0, ..., 3, 3, 3], ...],
-    "subtoken_map": [[-1, 0, 0, 1, 2, 3, ..., -1], ...]
+    "subtoken_map": [[0, 0, 1, 2, 3, ...], ...]
 }
 ```
 
