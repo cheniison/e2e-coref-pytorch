@@ -91,3 +91,8 @@
 
 1. 配置 config.py 相关参数
 2. 运行 ```pyhton predict.py```
+
+
+## 模型效果
+
+使用预设的配置训练 57000 steps，OntoNotes中文测试集 F1 值约为 0.63

@@ -15,7 +15,6 @@ class CorefModel(torch.nn.Module):
             config: 模型配置
                 embedding_dim: 词向量的维度
                 span_dim: span的维度
-                gap_dim: 零指代维度
                 ffnn_depth/size: 前馈神经网络深度和大小
                 max_span_width: span的最多字符数
         """
@@ -350,7 +349,7 @@ class CorefModel(torch.nn.Module):
                 predicted_antecedents.append(top_antecedents_index[i][index])
         return predicted_antecedents
 
-    def get_predicted_clusters(self, top_m_spans, predicted_antecedents, remove_zp=False):
+    def get_predicted_clusters(self, top_m_spans, predicted_antecedents):
         """ 根据预测的先行词得到指代簇
         """
         idx_to_clusters = {}
@@ -378,25 +377,9 @@ class CorefModel(torch.nn.Module):
 
             predicted_clusters.append(tuple(predicted_cluster))
 
-        if remove_zp == True:
-            predicted_clusters = self.remove_zp_cluster(predicted_clusters)
-
         mention_to_predicted = {}
         for pc in predicted_clusters:
             for mention in pc:
                 mention_to_predicted[tuple(mention)] = pc
 
         return predicted_clusters, mention_to_predicted
-
-    def remove_zp_cluster(self, clusters):
-        # 移除聚类中的零指代，和tools中的略有不同
-        clusters_wo_zp = list()
-        for cluster in clusters:
-            cluster_wo_zp = list()
-            for sloc, eloc in cluster:
-                if eloc - sloc > 0:
-                    cluster_wo_zp.append(tuple([sloc, eloc]))
-            if len(cluster_wo_zp) > 1:
-                clusters_wo_zp.append(tuple(cluster_wo_zp))
-
-        return clusters_wo_zp
