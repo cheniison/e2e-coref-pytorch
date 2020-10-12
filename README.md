@@ -58,7 +58,7 @@
 }
 ```
 
-说明：sentences中一个元素代表一个长句子，可由若干个短句子组成，使用onf_to_data.py生成的长句子长度在 max_seq_length 附近，max_seq_length 可在 config.py 文件中设置；sentences中组成长句子的若干个短句子由 **tokenize 后的 token** 组成；clusters 是文档中所有指代链的集合，由若干指代链组成，一个指代链由若干个指代词或先行语组成，指代词/先行语使用位置和token个数表示：```[在文档中的token起始位置, 在文档中的token结束位置]```。
+说明：sentences中一个元素代表一个长句子，可由若干个短句子组成，使用onf_to_data.py生成的长句子长度在 max_seq_length 附近，max_seq_length 可在 config.py 文件中设置；sentences中组成长句子的若干个短句子由 **tokenize 后的 token** 组成；clusters 是文档中所有指代链的集合，由若干指代链组成，一个指代链由若干个mention组成，mention使用位置表示：```[在文档中的token起始位置, 在文档中的token结束位置]```。
 
 例子（注：此处为了美观将json对象格式化为多行，在真实文件中每个文档需为1行）：
 
@@ -84,13 +84,13 @@
 ## 模型测试
 
 1. 配置 config.py 相关参数，将 evaluate.py 中的数据部分修改为希望测试的数据
-2. 运行 ```pyhton evaluate.py```
+2. 运行 ```python evaluate.py```
 
 
 ## 模型预测
 
 1. 配置 config.py 相关参数
-2. 运行 ```pyhton predict.py```
+2. 运行 ```python predict.py```
 
 
 ## 模型效果
