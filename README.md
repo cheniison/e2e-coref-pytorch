@@ -24,7 +24,7 @@
 ### python依赖包
 
 + python=3.6.6
-+ torch=1.15.0
++ torch=1.5.0
 + transformers=3.0.2
 + numpy=1.18.1
 
