@@ -1,6 +1,6 @@
 # e2e-coref-pytorch
 
-基于bert的端到端指代消解pytorch实现，仅在Ontonotes中文数据集上进行了测试（ONLY TESTED ON ONTONOTES 5.0 CHINESE DATASET），模型架构及tensorflow实现参考[bert-coref](https://github.com/mandarjoshi90/coref)
+基于bert的端到端指代消解pytorch实现，模型架构及tensorflow实现参考[bert-coref](https://github.com/mandarjoshi90/coref)
 
 ## 目录结构
 
@@ -31,7 +31,9 @@
 
 ## 数据集收集和处理
 
-### 使用 ontonotes 数据集（仅中文上测试过，ONLY TESTED ON CHINESE DATASET）
+### 使用 ontonotes 数据集
+
+#### 使用中文数据集
 
 1. 从 LDC 网站下载 ontonotes 数据集，修改 config.py 中的 "ontonotes_root_dir" 配置。若做中文指代，可将配置修改为 "/path/to/ontonotes/data/files/data/chinese/annotations"
 2. 检查 data/ 目录下是否存在 train_list/test_list/val_list
@@ -39,6 +41,12 @@
 4. 若没出现问题，则 data/ 下会生成 train.json/test.json/val.json 三个文件
 
 
+#### 使用英文数据集
+
+1. 参考 [bert-coref](https://github.com/mandarjoshi90/coref) 项目的中的 Setup for training 部分，生成英文数据集
+2. 将生成的英文数据集放在data/ 目录下
+3. 运行命令 `python jsonlines_to_data.py`
+4. 若没出现问题，则 data/ 下会生成 train.json/test.json/val.json 三个文件
 
 ### 使用自己的数据
 
@@ -78,21 +86,27 @@
 
 1. 按照“数据集收集和处理”得到符合输入格式的训练数据
 2. 配置 config.py 中相关参数，将 train.py 中的数据部分修改为希望训练的数据
-3. 运行 ```python train.py```
+3. 运行 `python train.py`
 
 
 ## 模型测试
 
 1. 配置 config.py 相关参数，将 evaluate.py 中的数据部分修改为希望测试的数据
-2. 运行 ```python evaluate.py```
+2. 运行 `python evaluate.py`
 
 
 ## 模型预测
 
 1. 配置 config.py 相关参数
-2. 运行 ```python predict.py```
+2. 运行 `python predict.py`
 
 
 ## 模型效果
 
-使用预设的配置训练 57000 steps，OntoNotes中文测试集 F1 值约为 0.63
+使用预设的配置训练 57000 steps，OntoNotes中文测试集 F1 值约为 0.63，英文测试F1 值为 0.72。由于水平有限，英文数据集上与论文效果差距 0.02。
+
+
+## 反馈
+如有错误和建议，欢迎指正和说明。
+欢迎 star 和 fork 本项目。
+
