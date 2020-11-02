@@ -34,10 +34,9 @@
 ### 使用 ontonotes 数据集
 
 1. 从 LDC 网站下载 ontonotes 数据集，修改 config.py 中的 "ontonotes_root_dir" 配置。若做中文指代，可将配置修改为 "/path/to/ontonotes/data/files/data/chinese/annotations"
-2. 检查 data/ 目录下是否存在 train_list/test_list/val_list
+2. 检查 data/ 目录下是否存在 train_list/test_list/val_list，如果不存在则链接到对应文件上
 3. 运行命令 ```python onf_to_data.py```
 4. 若没出现问题，则 data/ 下会生成 train.json/test.json/val.json 三个文件
-> 注意：train_list/test_list/val_list 应该链接到具体的中文或英文 list上；
 
 
 ### 使用自己的数据
@@ -77,7 +76,7 @@
 ## 模型训练
 
 1. 按照“数据集收集和处理”得到符合输入格式的训练数据
-2. 配置 config.py 中相关参数，将 train.py 中的数据部分修改为希望训练的数据
+2. 配置 config.py 中相关参数，将 train.py 中的数据部分修改为希望训练的数据；将 transformer_model_name 修改为需要的 transformer 模型
 3. 运行 `python train.py`
 
 
