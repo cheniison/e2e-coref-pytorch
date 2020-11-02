@@ -33,20 +33,12 @@
 
 ### 使用 ontonotes 数据集
 
-#### 使用中文数据集
-
 1. 从 LDC 网站下载 ontonotes 数据集，修改 config.py 中的 "ontonotes_root_dir" 配置。若做中文指代，可将配置修改为 "/path/to/ontonotes/data/files/data/chinese/annotations"
 2. 检查 data/ 目录下是否存在 train_list/test_list/val_list
 3. 运行命令 ```python onf_to_data.py```
 4. 若没出现问题，则 data/ 下会生成 train.json/test.json/val.json 三个文件
+> 注意：train_list/test_list/val_list 应该链接到具体的中文或英文 list上；
 
-
-#### 使用英文数据集
-
-1. 参考 [bert-coref](https://github.com/mandarjoshi90/coref) 项目的中的 Setup for training 部分，生成英文数据集
-2. 将生成的英文数据集放在data/ 目录下
-3. 运行命令 `python jsonlines_to_data.py`
-4. 若没出现问题，则 data/ 下会生成 train.json/test.json/val.json 三个文件
 
 ### 使用自己的数据
 
