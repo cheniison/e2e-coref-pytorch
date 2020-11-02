@@ -36,10 +36,9 @@ The program requires more than 16G of memory/video memory, you can modify the ma
 
 
 1. Download the ontonotes dataset from the LDC website and modify the "ontonotes_root_dir" configuration in config.py. If it is referred to in English, you can modify the configuration to "/path/to/ontonotes/data/files/data/English/annotations".
-2. Check whether train_list/test_list/val_list exists in the data/ directory
+2. Check whether train_list/test_list/val_list exists in the data/ directory. If it does not exist, link to the corresponding file
 3. run `python onf_to_data.py`
 4. If there is no problem, three files train.json/test.json/val.json will be generated under data/
-> note: train_list/test_list/val_list should be linked to a specific Chinese or English list
 
 
 ### Use your own dataset
@@ -84,7 +83,7 @@ Examples (Note: The json object is formatted into multiple lines in order to be 
 ## Model training
 
 1. Obtain training data conforming to the input format according to "Dataset collection and processing"
-2. Configure related parameters in config.py and modify the data part in train.py to the data you want to train
+2. Configure related parameters in config.py, modify the data part in train.py to the data you want to train and transformer_model_name to the required transformer model
 3. run `python train.py`
 
 
