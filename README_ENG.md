@@ -35,19 +35,11 @@ The program requires more than 16G of memory/video memory, you can modify the ma
 ### Use ontonotes database
 
 
-#### Use Chinese database
-
-1. Download the ontonotes dataset from the LDC website and modify the "ontonotes_root_dir" configuration in config.py. If it is referred to in Chinese, you can modify the configuration to "/path/to/ontonotes/data/files/data/chinese/annotations".
+1. Download the ontonotes dataset from the LDC website and modify the "ontonotes_root_dir" configuration in config.py. If it is referred to in English, you can modify the configuration to "/path/to/ontonotes/data/files/data/English/annotations".
 2. Check whether train_list/test_list/val_list exists in the data/ directory
 3. run `python onf_to_data.py`
 4. If there is no problem, three files train.json/test.json/val.json will be generated under data/
-
-#### Use English database
-1. Refer to the Setup for training part of the [bert-coref](https://github.com/mandarjoshi90/coref) project to generate an English data set
-2. Put the generated English data set in the data/ directory
-3. run `python jsonlines_to_data.py`
-4. If there is no problem, three files train_eng.json/test_eng.json/val_eng.json will be generated under data/
-
+> note: train_list/test_list/val_list should be linked to a specific Chinese or English list
 
 
 ### Use your own dataset
