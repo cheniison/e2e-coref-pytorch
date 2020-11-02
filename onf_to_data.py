@@ -126,10 +126,10 @@ class Onf(object):
             for i, genre in enumerate(self.config["genres"]):
                 if word == genre:
                     # 匹配了对应的类型
-                    return i + 1
+                    return genre
 
         # 未匹配上类型
-        return 0
+        return "Unknown"
 
 
 
