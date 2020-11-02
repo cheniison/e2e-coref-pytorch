@@ -126,10 +126,10 @@ class Onf(object):
             for i, genre in enumerate(self.config["genres"]):
                 if word == genre:
                     # 匹配了对应的类型
-                    return genre
+                    return i + 1
 
         # 未匹配上类型
-        return "Unknown"
+        return 0
 
 
 
@@ -141,6 +141,7 @@ class Section(object):
     TREE_MARK = "Tree:"
     LEAVES_MARK = "Leaves:"
     COREF_MARK = "Coreference chains for section"
+    COREF_LOC_PATTERN = r"\d+\.\d+-\d+"
 
 
     def __init__(self, start_line=0):
@@ -158,6 +159,14 @@ class Section(object):
         """
         return len(self.plain_sentence_list)
 
+    def sentence_is_break(self, sentence):
+        """ 判断句子是否是分界句
+        """
+        for t in sentence:
+            if t != "-":
+                return False
+        return True
+
     def sentence_is_valid(self, sentence, speaker_ids):
         """ 判断句子是否是有效的
         """
@@ -174,12 +183,12 @@ class Section(object):
         """
         piece = list()
         line_i += 1
-        if sentence_block[line_i] != "-" * len(sentence_block[line_i]):
+        if not self.sentence_is_break(sentence_block[line_i]):
             raise Exception("片格式有误")
         
         while True:
             line_i += 1
-            if line_i + 2 >= len(sentence_block) or (sentence_block[line_i + 2] != "" and sentence_block[line_i + 2][0] == "-"):
+            if line_i + 2 >= len(sentence_block) or (sentence_block[line_i + 2] != "" and self.sentence_is_break(sentence_block[line_i + 2])):
                 break
             piece.append(sentence_block[line_i])
         
@@ -220,16 +229,16 @@ class Section(object):
         for coref_chain in self.coref_chains:
             formatted_coref_chain = list()
             for coref in coref_chain:
-                if coref[0][0].isdigit():
+                if re.match(self.COREF_LOC_PATTERN, coref[0]) is not None:
                     loc = coref[0]
-                elif len(coref) > 1 and coref[1][0].isdigit():
+                elif len(coref) > 1 and re.match(self.COREF_LOC_PATTERN, coref[1]) is not None:
                     loc = coref[1]      # 有部分指代的格式开头不是行号
                 else:
                     continue            # 有部分换行的指代
                 line_num, line_loc = loc.split(".")
                 line_start, line_end = line_loc.split("-")
                 line_num = int(line_num) - self.start_line
-                formatted_coref = [line_num, int(line_start), int(line_end)]
+                formatted_coref = [line_num, int(line_start), int(line_end) + 1]
                 formatted_coref_chain.append(formatted_coref)
                 if line_num not in line_corefs:
                     line_corefs[line_num] = list()
@@ -264,7 +273,7 @@ class Section(object):
                             coref[1] += len(tokenized_word) - 1
                             coref[2] += len(tokenized_word) - 1
 
-                        elif coref[2] >= len(tokens):
+                        elif coref[2] > len(tokens):
                             coref[2] += len(tokenized_word) - 1
 
                 tokens.extend(tokenized_word)
@@ -323,8 +332,8 @@ class Section(object):
             if len(formatted_coref_chain) > 1:
                 cluster = list()
                 for coref in formatted_coref_chain:
-                    if coref[1] <= coref[2]:
-                        cluster.append([coref[1], coref[2]])
+                    if coref[1] != coref[2]:
+                        cluster.append([coref[1], coref[2] - 1])
                 if len(cluster) > 1:
                     output_clusters.append(cluster)
 
@@ -355,9 +364,9 @@ class Section(object):
         
         if sentence_block[line_i] == self.PLAIN_SENTENCE_MARK:
             plain_sentence, line_i = self.read_piece(sentence_block, line_i)
-            if len(plain_sentence) != 1:
+            if len(plain_sentence) == 0:
                 raise Exception("Plain sentence 格式有误")
-            plain_sentence = plain_sentence[0]
+            plain_sentence = " ".join(plain_sentence)
         else:
             raise Exception("块格式有误")
 
@@ -471,3 +480,4 @@ if __name__ == "__main__":
     train_file_fd.close()
     val_file_fd.close()
     test_file_fd.close()
+
