@@ -102,4 +102,10 @@ Examples (Note: The json object is formatted into multiple lines in order to be 
 
 ## Model effect
 
-Due to limited ability, using the preset configuration to train 57000 steps, the F1 value of the testset is about 0.719, which is 0.02 different from the effect in the paper
+Use the preset configuration to train 57000 steps, the F1 value of OntoNotes Chinese testset is about 0.63, and the English testset is 0.72.
+
+Due to limited ability, the difference between the effect on the English data set and the paper is 0.02.
+
+## Feedback
+
+If there are errors and suggestions, please correct me and explain. Welcome to star and fork this project.
