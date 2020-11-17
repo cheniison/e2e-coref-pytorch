@@ -32,7 +32,7 @@ The program requires more than 16GB GPU, you can modify the max_training_sentenc
 
 ## Dataset collection and processing
 
-### Use ontonotes database(ONLY TESTED ON CHINESE DATASET)
+### Use Ontonotes dataset(ONLY TESTED ON CHINESE DATASET)
 
 
 1. Download the ontonotes dataset from the LDC website and modify the "ontonotes_root_dir" configuration in config.py. If it is referred to in English, you can modify the configuration to "/path/to/ontonotes/data/files/data/English/annotations".
