@@ -2,7 +2,7 @@
 
 [README_ENG](./README_ENG.md)
 
-基于bert的端到端指代消解pytorch实现，模型架构及tensorflow实现参考[bert-coref](https://github.com/mandarjoshi90/coref)
+基于[transformers](https://github.com/huggingface/transformers)的端到端指代消解pytorch实现，模型架构及tensorflow实现参考[bert-coref](https://github.com/mandarjoshi90/coref)
 
 ## 目录结构
 
