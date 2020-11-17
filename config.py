@@ -45,7 +45,7 @@ best_config = {
     "genres": ["bc", "bn", "mz", "nw", "tc", "wb"],
 
     # 选择topk时是否考虑单元互斥
-    "extract_spans": False,
+    "extract_spans": True,
 
     # transformer model
     "transformer_model_name": 'bert-base-chinese',
