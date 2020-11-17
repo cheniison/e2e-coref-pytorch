@@ -21,10 +21,12 @@ if __name__ == "__main__":
     checkpoint = torch.load(c["checkpoint_path"] + ".max")
     coref_model.load_state_dict(checkpoint["model"])
 
-    # data format: [[[sentence1, sentence2, ...], [cluster1, cluster2, ...]], ...]
-    # cluster: [[span_start_loc/gap_end_loc, span_len/gap_len], ...]
+    # ==============================================================================================
+    # data
+    # ==============================================================================================
     
-    # 自己的数据
+    # -----------------------------
+    # 使用自己的数据
     # val_data = [
     #     {
     #         "sentences": [["打", "雷", "了", "怎", "么", "发", "短", "信", "安", "慰", "女", "朋", "友", "？", "打", "雷", "时", "还", "给", "她", "发", "？"]],
@@ -37,11 +39,15 @@ if __name__ == "__main__":
     #     }
     # ]
 
+    # ------------------------------
+    # 使用 val_file_path 文件数据
     val_data = list()
     with open(c["val_file_path"], "r", encoding="utf-8") as fd:
         for line in fd:
             item = json.loads(line.strip())
             val_data.append(item)
+
+    # ================================================================================================
 
     tokenized_val_data = list()
     for data_i in val_data:

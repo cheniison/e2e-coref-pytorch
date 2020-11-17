@@ -1,5 +1,7 @@
 # e2e-coref-pytorch
 
+[README_ENG](./README_ENG.md)
+
 基于bert的端到端指代消解pytorch实现，模型架构及tensorflow实现参考[bert-coref](https://github.com/mandarjoshi90/coref)
 
 ## 目录结构
@@ -19,7 +21,7 @@
 
 ### 硬件需求
 
-程序需要超过16G的内存/显存，训练时可通过修改 config.py 中的 max_training_sentences 配置降低显存使用
+程序需要超过16G的内存/显存，训练时可通过修改 config.py 中的 max_training_sentences 等配置降低显存使用
 
 ### python依赖包
 
@@ -31,12 +33,13 @@
 
 ## 数据集收集和处理
 
-### 使用 ontonotes 数据集
+### 使用 ontonotes 数据集（仅在中文上做了测试）
 
 1. 从 LDC 网站下载 ontonotes 数据集，修改 config.py 中的 "ontonotes_root_dir" 配置。若做中文指代，可将配置修改为 "/path/to/ontonotes/data/files/data/chinese/annotations"
-2. 检查 data/ 目录下是否存在 train_list/test_list/val_list，如果不存在则链接到对应文件上
-3. 运行命令 ```python onf_to_data.py```
+2. 检查 data/ 目录下是否存在 train_list/test_list/val_list。若不存在则需建立软链接到对应文件上（也可直接复制，更推荐软链接），相关命令为 `ln -si ./data/list/train_chinese_list ./data/train_list`
+3. 运行命令 `python onf_to_data.py`
 4. 若没出现问题，则 data/ 下会生成 train.json/test.json/val.json 三个文件
+5. 注意：数据文件（英文、中文、阿拉伯文）也可以简单的由 [bert-coref](https://github.com/mandarjoshi90/coref) 中生成的 jsonlines 转换而来
 
 
 ### 使用自己的数据
@@ -57,7 +60,7 @@
 }
 ```
 
-说明：sentences中一个元素代表一个长句子，可由若干个短句子组成，使用onf_to_data.py生成的长句子长度在 max_seq_length 附近，max_seq_length 可在 config.py 文件中设置；sentences中组成长句子的若干个短句子由 **tokenize 后的 token** 组成；clusters 是文档中所有指代链的集合，由若干指代链组成，一个指代链由若干个mention组成，mention使用位置表示：```[在文档中的token起始位置, 在文档中的token结束位置]```。
+说明：sentences中一个元素代表一个长句子，可由若干个短句子组成，使用onf_to_data.py生成的长句子长度在 max_seq_length 附近，max_seq_length 可在 config.py 文件中设置；sentences中组成长句子的若干个短句子由 **tokenize 后的 token** 组成；clusters 是文档中所有指代链的集合，由若干指代链组成，一个指代链由若干个mention组成，mention使用位置表示：`[在文档中的token起始位置, 在文档中的token结束位置]`。
 
 例子（注：此处为了美观将json对象格式化为多行，在真实文件中每个文档需为1行）：
 
@@ -94,7 +97,7 @@
 
 ## 模型效果
 
-使用预设的配置训练 57000 steps，OntoNotes中文测试集 F1 值约为 0.63，英文测试F1 值为 0.72。由于水平有限，英文数据集上与论文效果差距 0.02。
+使用预设的配置训练 70000 steps，OntoNotes中文测试集 F1 值约为 0.67，英文测试F1 值为 0.73。由于水平有限，英文数据集上与论文效果差距 0.01。
 
 
 ## 反馈

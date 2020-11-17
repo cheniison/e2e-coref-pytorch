@@ -2,7 +2,7 @@
 # best config
 best_config = {
     "embedding_dim": 768,
-    "max_span_width": 10,
+    "max_span_width": 30,
     # max training sentences depends on size of memery 
     "max_training_sentences": 11,
     # max seq length
@@ -15,8 +15,8 @@ best_config = {
     "weight_decay": 0.0005,
     "dropout": 0.3,
 
-    "report_frequency": 50,
-    "eval_frequency": 500,
+    "report_frequency": 200,
+    "eval_frequency": 2000,
 
     # ontonotes dir
     "ontonotes_root_dir": "./data/ontonotes",
@@ -33,8 +33,8 @@ best_config = {
     "coref_depth": 2,
 
     # FFNN config
-    "ffnn_depth": 2,
-    "ffnn_size": 150,
+    "ffnn_depth": 1,
+    "ffnn_size": 3000,
 
     # use span features, such as distance
     "use_features": True,

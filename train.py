@@ -8,6 +8,7 @@ import _pickle
 import os
 import copy
 import numpy as np
+import pprint
 from torch.utils.data import BatchSampler, SequentialSampler, RandomSampler
 from transformers import AutoTokenizer, AutoModel, AdamW
 
@@ -34,26 +35,29 @@ def train():
     transformer_optim = AdamW(transformer_model.parameters(), lr=c["transformer_lr"])
     transformer_model.train()
 
+    print("config:")
+    pprint.pprint(c)
+
     print("preparing data...")
 
     # =========使用自己的数据=========
-    train_data = [
-        {
-            "sentences": [["打", "雷", "了", "怎", "么", "发", "短", "信", "安", "慰", "女", "朋", "友", "？", "打", "雷", "时", "还", "给", "她", "发", "？"]],
-            "clusters": [[[10, 12], [19, 19]]],
-            "speaker_ids": [["a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "b", "b", "b", "b", "b", "b", "b", "b"]],
-            "sentence_map": [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1]],
-            "subtoken_map": [[1, 1, 2, 3, 3, 4, 5, 5, 6, 6, 7, 8, 8, 9, 10, 10, 11, 12, 13, 14, 15, 16]],
-            "genre": "dummy_genre",
-            "doc_key": "dummy_data"
-        }
-    ]
-
-    val_data = copy.deepcopy(train_data)
+#    train_data = [
+#        {
+#            "sentences": [["打", "雷", "了", "怎", "么", "发", "短", "信", "安", "慰", "女", "朋", "友", "？", "打", "雷", "时", "还", "给", "她", "发", "？"]],
+#            "clusters": [[[10, 12], [19, 19]]],
+#            "speaker_ids": [["a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "b", "b", "b", "b", "b", "b", "b", "b"]],
+#            "sentence_map": [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1]],
+#            "subtoken_map": [[1, 1, 2, 3, 3, 4, 5, 5, 6, 6, 7, 8, 8, 9, 10, 10, 11, 12, 13, 14, 15, 16]],
+#            "genre": "dummy_genre",
+#            "doc_key": "dummy_data"
+#        }
+#    ]
+#
+#    val_data = copy.deepcopy(train_data)
 
     # =========end:使用自己的数据=========
 
-    # =========使用已生成的数据文件=========
+    # =========使用已有的数据文件=========
     train_data = list()
     with open(c["train_file_path"], "r", encoding="utf-8") as fd:
         for line in fd:
@@ -66,7 +70,7 @@ def train():
             item = json.loads(line.strip())
             val_data.append(item)
 
-    # =========end:使用已生成的数据文件=========
+    # =========end:使用已有的数据文件=========
 
 
     tokenized_train_data = list()
@@ -144,8 +148,8 @@ def train():
                 # 每 c["eval_frequency"] 轮保存一次
                 coref_model.eval()
                 transformer_model.eval()
-                torch.save({"model": coref_model.state_dict(), "optimizer": optimizer.state_dict(), "steps": steps}, c["checkpoint_path"] + "." + str(steps))
-                transformer_model.save_pretrained(c["checkpoint_path"] + ".transformer." + str(steps))
+#                torch.save({"model": coref_model.state_dict(), "optimizer": optimizer.state_dict(), "steps": steps}, c["checkpoint_path"] + "." + str(steps))
+#                transformer_model.save_pretrained(c["checkpoint_path"] + ".transformer." + str(steps))
                 try:
                     p, r, f = coref_model.evaluate(tokenized_val_data, transformer_model)
                     if f >= max_f1:

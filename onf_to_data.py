@@ -434,7 +434,7 @@ if __name__ == "__main__":
     import tqdm
 
     c = config.best_config
-    tokenizer = AutoTokenizer.from_pretrained(c["transformer_model_name"])
+    tokenizer = AutoTokenizer.from_pretrained(c["transformer_model_name"], do_lower_case=False)
     ontonotes_root_path = Path(c["ontonotes_root_dir"])
     onf_files_path = find_onf_files(ontonotes_root_path)
 
